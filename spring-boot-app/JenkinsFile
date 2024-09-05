@@ -17,6 +17,11 @@ pipeline {
         //git branch: 'main', url: 'https://github.com/DamithGit92/Jenkins-Zero-To-Hero.git'
       }
     }
+    stage('Prepare Workspace') {
+      steps {
+        sh 'sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace/ultimate-demo'
+      }
+    }
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
