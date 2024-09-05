@@ -11,12 +11,12 @@ pipeline {
         cleanWs()
       }
     }
-    stage('Checkout') {
+    /*stage('Checkout') {
       steps {
         sh 'echo passed'
         //git branch: 'main', url: 'https://github.com/DamithGit92/spring-boot-app.git'
       }
-    }
+    }*/
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
