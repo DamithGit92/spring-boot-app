@@ -6,6 +6,12 @@ pipeline {
     }
   }
   stages {
+    stage('Clean Workspace') {
+      steps {
+        cleanWs()
+        sh 'sudo rm -rf /var/lib/jenkins/workspace/ultimate-demo/*'
+      }
+    }
     stage('Checkout') {
       steps {
         sh 'echo passed'
@@ -48,7 +54,7 @@ pipeline {
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "spring-boot-app"
-            GIT_USER_NAME = "DamithGit92"
+            GIT_user = "DamithGit92"
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
@@ -59,7 +65,7 @@ pipeline {
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" spring-boot-app-manifests/deployment.yml
                     git add spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_user}/${GIT_REPO_NAME} HEAD:main
                 '''
             }
         }
