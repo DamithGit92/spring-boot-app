@@ -2,14 +2,14 @@ pipeline {
   agent {
     docker {
       image 'dockerdmsnew/maven-damith-docker-agent:v1'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
     }
   }
   stages {
     stage('Checkout') {
       steps {
         sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/DamithGit92/Jenkins-Zero-To-Hero.git'
+        //git branch: 'main', url: 'https://github.com/DamithGit92/spring-boot-app.git'
       }
     }
     stage('Build and Test') {
@@ -47,7 +47,7 @@ pipeline {
     }
     stage('Update Deployment File') {
         environment {
-            GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
+            GIT_REPO_NAME = "spring-boot-app"
             GIT_USER_NAME = "DamithGit92"
         }
         steps {
